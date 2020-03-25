@@ -41,6 +41,7 @@ def noti():
         print('ยอดเท่าเดิม', timestamp)
     print(current_infected)
 
+print('running...............')
 schedule.every().hour.do(noti)
 while True:
     schedule.run_pending()
