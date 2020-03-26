@@ -15,7 +15,6 @@ def noti():
     global current_die
     #timestamp
     now = datetime.now()
-    timestamp = datetime.timestamp(now)
     response = requests.get('https://covid19-cdn.workpointnews.com/api/constants.json')
     data = response.json()
     print(data)
@@ -36,9 +35,9 @@ def noti():
         current_healed = new_healed
         current_healing = new_healing
         current_die = new_die
-        print(r.content, timestamp)
+        print(r.content, now)
     else:
-        print('ยอดเท่าเดิม', timestamp)
+        print('ยอดเท่าเดิม', now)
     print(current_infected)
 
 print('running...............')
