@@ -15,13 +15,13 @@ def noti():
     global current_die
     #timestamp
     now = datetime.now()
-    response = requests.get('https://covid19-cdn.workpointnews.com/api/constants.json')
+    response = requests.get('https://covid19.th-stat.com/api/open/today')
     data = response.json()
     print(data)
-    new_infected = int(data['ผู้ติดเชื้อ'])
-    new_healed = int(data['หายแล้ว'])
-    new_healing = int(data['กำลังรักษา'])
-    new_die = int(data['เสียชีวิต'])
+    new_infected = int(data['Confirmed'])
+    new_healed = int(data['Recovered'])
+    new_healing = int(data['Hospitalized'])
+    new_die = int(data['Deaths'])
     format_data = ''
     token = '<token form linenotify>'
     url = 'https://notify-api.line.me/api/notify'
@@ -29,7 +29,7 @@ def noti():
               'Authorization': 'Bearer ' + token}
     if new_infected != current_infected or new_healed != current_healed or new_healing != current_healing or new_die != current_die:
         for key, value in data.items():
-            format_data += key + ': ' + value + '\n'
+            format_data += key + ': ' + str(value) + '\n'
         r = requests.post(url, headers=headers, data={'message': format_data})
         current_infected = new_infected
         current_healed = new_healed
@@ -41,6 +41,7 @@ def noti():
     print(current_infected)
 
 print('running...............')
+noti()
 schedule.every().hour.do(noti)
 while True:
     schedule.run_pending()
