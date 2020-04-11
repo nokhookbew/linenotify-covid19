@@ -16,13 +16,17 @@ def noti():
     #timestamp
     now = datetime.now()
     response = requests.get('https://covid19.th-stat.com/api/open/today')
-    data = response.json()
-    print(data)
-    new_infected = int(data['Confirmed'])
-    new_healed = int(data['Recovered'])
-    new_healing = int(data['Hospitalized'])
-    new_die = int(data['Deaths'])
-    format_data = ''
+    try:
+        data = response.json()
+        print(data)
+        new_infected = int(data['Confirmed'])
+        new_healed = int(data['Recovered'])
+        new_healing = int(data['Hospitalized'])
+        new_die = int(data['Deaths'])
+        format_data = ''
+    except Exception as e:
+        print(e)
+        format_data = 'api responses somethin wrong'
     token = '<token form linenotify>'
     url = 'https://notify-api.line.me/api/notify'
     headers = {'Content-Type': 'application/x-www-form-urlencoded',
