@@ -45,7 +45,7 @@ def noti():
         print(current_infected)
     except Exception as e:
         print(e)
-        format_data = 'api responses somethin wrong'
+        format_data = 'api responses something wrong'
         send(format_data, now)
 
 print('running...............')
